@@ -1,1 +1,1 @@
-# Full-stack JavaScript boilerplate
+# Application for searching events near you
