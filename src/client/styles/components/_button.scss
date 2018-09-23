@@ -1,0 +1,22 @@
+.btn {
+	cursor: pointer;
+	
+	&,
+	&:link,
+	&:visited {
+		display: inline-block;
+		padding: 1rem 2.5rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		border-radius: .3rem;
+		text-decoration: none;
+		color: $color-black;
+		transition: all .3s;
+	}
+
+	&_sign-in {
+		color: $color-white !important;
+		background-color: $color-grey-dark;
+	}
+}
+

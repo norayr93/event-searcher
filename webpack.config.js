@@ -62,7 +62,15 @@ module.exports = (env) => {
       })
     ],
     devServer: {
-      contentBase: path.join(__dirname, 'dist')
+      contentBase: path.join(__dirname, 'dist'),
+      historyApiFallback: true,
+      port: 3000,
+      proxy: {
+        '/auth/eventbrite': 'http://localhost:5000',
+        '/api/*': {
+          target: 'http://localhost:5000'
+        }
+      }
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map'
   };
