@@ -22,9 +22,4 @@ module.exports = (app) => {
     console.log(req.user, 'useeeeeeer');
     res.send(req.user);
   });
-
-  app.get('/api/hello', (req, res) => {
-    console.log(req.user, 'useeeeeeer');
-    res.send(req.user);
-  });
 };

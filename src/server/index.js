@@ -3,7 +3,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
-const path = require('path');
+// const path = require('path');
 
 const keys = require('./config/keys');
 require('./models/User');

@@ -1,8 +1,6 @@
-export default (state = {
-  event: {}
-}, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case 'SEARCH_EVENT':
+    case 'IS_AUTH':
       return { event: action.event };
     default:
       return state;
