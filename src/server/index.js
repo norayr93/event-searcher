@@ -19,12 +19,10 @@ app.use(cookieSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-require('./routes/authRoutes')(app);
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+require('./routes/authRoutes')(app);
 
 // app.use(express.static(path.join(__dirname, '../../dist')));
 // app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist/index.html')));
