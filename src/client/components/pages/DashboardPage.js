@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SearchIcon from '../SvgIcons';
 import MapComponent from '../Map';
-import { getEventInfo } from '../../actions';
+import { getEventInfo, getUserInfo } from '../../actions';
 
 class DashboardPage extends Component {
-  handleEventSearch(e) {
+  componentDidMount() {
+    const { dispatchUserInfo } = this.props;
+    dispatchUserInfo();
+  }
+
+  handleEventSearch = (e) => {
     e.preventDefault();
+    const { dispatchEventInfo, accessToken } = this.props;
     const query = e.target.children[0].value;
+    dispatchEventInfo(accessToken, query);
   }
 
   render() {
-    console.log(this.props, 'prooooooooooooooops');
     return (
       <div className="dashboard-container">
         <div className="search-event">
@@ -36,6 +43,7 @@ class DashboardPage extends Component {
         </div>
         <div className="google-map">
           <MapComponent
+
             isMarkerShown
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGCyELoQaEHdu5GWT5WPTYU-T811MA4SY&v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: '100%' }} />}
@@ -48,17 +56,33 @@ class DashboardPage extends Component {
   }
 }
 
+DashboardPage.defaultProps = {
+  dispatchUserInfo: null,
+  dispatchEventInfo: null,
+  accessToken: ''
+};
+
+DashboardPage.propTypes = {
+  dispatchUserInfo: PropTypes.func,
+  dispatchEventInfo: PropTypes.func,
+  accessToken: PropTypes.string
+};
+
 const mapStateToProps = (state) => {
-  console.log(state, 'staeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+  const name = state.userReducer.name || '';
+  const accessToken = state.userReducer.accessToken || '';
   return {
-    name: state.userReducer.name,
-    accesstoken: state.uderReducer.accesstoken
+    name,
+    accessToken
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatchEventInfo() {
-    dispatch(getEventInfo());
+  dispatchEventInfo(query, token) {
+    dispatch(getEventInfo(query, token));
+  },
+  dispatchUserInfo() {
+    dispatch(getUserInfo());
   }
 });
 
