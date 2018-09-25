@@ -1,9 +1,10 @@
-import createReducer from '../utilities';
+import { createReducer } from '../utilities';
 import { GET_USER_INFO } from '../actions';
 
-const userInfo = createReducer(null, {
-  [GET_USER_INFO](state, { value }) {
-    return value;
+const userInfo = createReducer({}, {
+  [GET_USER_INFO](state, { userData = null }) {
+    console.log(userData, 'userData from userReducer');
+    return userData;
   }
 });
 

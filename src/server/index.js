@@ -9,7 +9,7 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-mongoose.connect('mongodb://localhost:27017/eventbrite');
+mongoose.connect('mongodb://127.0.0.1:27017/eventbrite');
 
 const app = express();
 

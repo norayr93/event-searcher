@@ -1,8 +1,9 @@
 const makeActionCreator = (type, ...argNames) => (...args) => {
   const action = { type };
   argNames.forEach((arg, index) => {
-    action[argNames[index]] = args[index];
+    action[arg] = args[index];
   });
+  // console.log(action, 'actioon');
   return action;
 };
 

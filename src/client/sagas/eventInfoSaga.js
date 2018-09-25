@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 import {
-  take, put, call, apply
+  take, put, call
 } from 'redux-saga/effects';
 
 import {
@@ -7,14 +9,18 @@ import {
 } from '../actions';
 
 export default function* eventInfoSaga() {
-  const { token, query } = yield take(GET_EVENT_INFO);
-  const options = {
-    credentials: 'include',
-    headers: { Authorization: `Bearer ${token}` }
-  };
-  const response = yield call(fetch,
-    `https://www.eventbriteapi.com/v3/events/search/?q=${query}&expand=venue`, options);
-  console.log(response, 'response eventInfoSaga');
-  const data = yield apply(response, response.json);
-  yield put(getEventInfo(data));
+  try {
+    const { token, query } = yield take(GET_EVENT_INFO);
+    const options = {
+      credentials: 'include',
+      headers: { Authorization: `Bearer ${token}` }
+    };
+    const response = yield call(axios,
+      `https://www.eventbriteapi.com/v3/events/search/?q=${query}&expand=venue`,
+      options);
+    console.log(response, 'response eventInfoSaga');
+    yield put(getEventInfo(response));
+  } catch (err) {
+    console.log(err);
+  }
 }

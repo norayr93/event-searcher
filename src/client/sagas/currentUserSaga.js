@@ -1,14 +1,18 @@
+import axios from 'axios';
+
 import {
-  take, put, call, apply
+  take, put, call
 } from 'redux-saga/effects';
 
-import {
-  setUserInfo, GET_USER_INFO
-} from '../actions';
+import { getUserInfo, GET_USER_INFO } from '../actions';
 
 export default function* currentUserSaga() {
-  yield take(GET_USER_INFO);
-  const response = yield call(fetch, 'api/current_user');
-  const data = yield apply(response, response.json);
-  yield put(setUserInfo(data));
+  try {
+    yield take(GET_USER_INFO);
+    const response = yield call(axios, '/api/current_user');
+    // console.log(response, 'responseee from user saga');
+    yield put(getUserInfo(response.data));
+  } catch (err) {
+    console.log(err);
+  }
 }

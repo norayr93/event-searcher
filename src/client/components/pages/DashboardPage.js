@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SearchIcon from '../SvgIcons';
 import MapComponent from '../Map';
+import { getEventInfo } from '../../actions';
 
 class DashboardPage extends Component {
-  state = {
-
+  handleEventSearch(e) {
+    e.preventDefault();
+    const query = e.target.children[0].value;
   }
 
-
   render() {
+    console.log(this.props, 'prooooooooooooooops');
     return (
       <div className="dashboard-container">
         <div className="search-event">
-          <form className="search-event__form">
+          <form className="search-event__form" onSubmit={this.handleEventSearch}>
             <input
               autoComplete="off"
               type="text"
@@ -45,4 +48,18 @@ class DashboardPage extends Component {
   }
 }
 
-export default DashboardPage;
+const mapStateToProps = (state) => {
+  console.log(state, 'staeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+  return {
+    name: state.userReducer.name,
+    accesstoken: state.uderReducer.accesstoken
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  dispatchEventInfo() {
+    dispatch(getEventInfo());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
