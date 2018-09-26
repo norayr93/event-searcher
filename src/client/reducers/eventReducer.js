@@ -1,9 +1,9 @@
 import { createReducer } from '../utilities';
-import { GET_EVENT_INFO } from '../actions';
+import { SET_EVENT_INFO } from '../actions';
 
 const eventInfo = createReducer(null, {
-  [GET_EVENT_INFO](state, { eventData = null }) {
-    console.log(eventData, 'eventData');
+  [SET_EVENT_INFO](state, { eventData = null }) {
+    // console.log(eventData, 'eventData');
     return eventData;
   }
 });

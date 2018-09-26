@@ -5,6 +5,7 @@ import SearchIcon from '../SvgIcons';
 import MapComponent from '../Map';
 import { getEventInfo, getUserInfo } from '../../actions';
 
+/* eslint react/prop-types: 0 */
 class DashboardPage extends Component {
   componentDidMount() {
     const { dispatchUserInfo } = this.props;
@@ -19,6 +20,8 @@ class DashboardPage extends Component {
   }
 
   render() {
+    console.log(this.props, 'prooooooooooooops');
+    const { events } = this.props;
     return (
       <div className="dashboard-container">
         <div className="search-event">
@@ -42,14 +45,7 @@ class DashboardPage extends Component {
           </p>
         </div>
         <div className="google-map">
-          <MapComponent
-
-            isMarkerShown
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGCyELoQaEHdu5GWT5WPTYU-T811MA4SY&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: '100%' }} />}
-            containerElement={<div style={{ height: '100%' }} />}
-            mapElement={<div style={{ height: '100%' }} />}
-          />
+          <MapComponent events={events} />
         </div>
       </div>
     );
@@ -71,9 +67,11 @@ DashboardPage.propTypes = {
 const mapStateToProps = (state) => {
   const name = state.userReducer.name || '';
   const accessToken = state.userReducer.accessToken || '';
+  const events = state.eventReducer || [];
   return {
     name,
-    accessToken
+    accessToken,
+    events
   };
 };
 
