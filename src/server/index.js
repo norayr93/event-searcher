@@ -3,7 +3,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
-// const path = require('path');
+const path = require('path');
 
 const keys = require('./config/keys');
 require('./models/User');
@@ -24,8 +24,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes/authRoutes')(app);
 
-// app.use(express.static(path.join(__dirname, '../../dist')));
-// app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist/index.html')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../dist')));
+  app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist/index.html')));
+}
+
 
 const port = process.env.PORT || 5000;
 
