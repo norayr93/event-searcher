@@ -7,10 +7,14 @@ module.exports = (env) => {
   const isProduction = env === 'production';
 
   return {
-    entry: ['@babel/polyfill', './src/client/index.js'],
+    context: __dirname,
+    entry: ['@babel/polyfill', './src/client/index.tsx'],
     output: {
       path: path.join(__dirname, 'dist'),
       filename: 'bundle.js'
+    },
+    resolve: {
+      extensions: ['.js', '.ts', '.tsx', '.json']
     },
     module: {
       rules: [
@@ -20,6 +24,16 @@ module.exports = (env) => {
           use: {
             loader: 'babel-loader'
           }
+        },
+        {
+          test: /\.tsx?$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: 'ts-loader'
+        },
+        {
+          enforce: 'pre',
+          test: /\.js$/,
+          loader: 'source-map-loader'
         },
         {
           test: /\.s?css$/,
@@ -72,6 +86,10 @@ module.exports = (env) => {
         }
       }
     },
-    devtool: isProduction ? 'source-map' : 'inline-source-map'
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM'
+    }
   };
 };

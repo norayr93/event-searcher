@@ -6,22 +6,21 @@ import MapComponent from '../Map';
 import { getEventInfo, getUserInfo } from '../../actions';
 
 /* eslint react/prop-types: 0 */
-class DashboardPage extends Component {
+class DashboardPage extends Component {              
   componentDidMount() {
     const { dispatchUserInfo } = this.props;
     dispatchUserInfo();
   }
 
-  handleEventSearch = (e) => {
+  handleEventSearch = (e : Object) => {
     e.preventDefault();
     const { dispatchEventInfo, accessToken } = this.props;
     const query = e.target.children[0].value;
     dispatchEventInfo(accessToken, query);
   }
 
-  render() {
-    console.log(this.props, 'prooooooooooooops');
-    const { events } = this.props;
+  render() { 
+    const { events } = this.props; 
     return (
       <div className="dashboard-container">
         <div className="search-event">

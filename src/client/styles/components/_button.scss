@@ -18,5 +18,11 @@
 		color: $color-white !important;
 		background-color: $color-grey-dark;
 	}
+
+	&_black {
+		background-image: linear-gradient(to right, $color-black, $color-grey-light);
+		color: $color-white;
+		align-self: center;
+	}
 }
 
