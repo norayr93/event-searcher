@@ -63,7 +63,7 @@ DashboardPage.propTypes = {
   accessToken: PropTypes.string
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: Object) => {
   const name = state.userReducer.name || '';
   const accessToken = state.userReducer.accessToken || '';
   const events = state.eventReducer || [];

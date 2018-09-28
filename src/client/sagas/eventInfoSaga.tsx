@@ -1,4 +1,6 @@
-import axios from 'axios';
+import axios, {
+  AxiosPromise
+} from 'axios';
 
 import {
   takeEvery, put, call
@@ -8,9 +10,14 @@ import {
   setEventInfo, GET_EVENT_INFO
 } from '../actions';
 
-function* workerSaga({ token, query }) {
+function* workerSaga({ token, query }: {token: string, query: string}) {
   try {
-    const options = {
+    const options: {
+      method: string,
+      url: string,
+      credentials: string,
+      headers: { Authorization: string }
+    } = {
       method: 'get',
       url: `https://www.eventbriteapi.com/v3/events/search/?q=${query}&sort_by=best&price=paid&expand=venue`,
       credentials: 'include',
