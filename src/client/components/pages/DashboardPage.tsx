@@ -1,21 +1,42 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import SearchIcon from '../SvgIcons';
 import MapComponent from '../Map';
 import { getEventInfo, getUserInfo } from '../../actions';
 
-/* eslint react/prop-types: 0 */
-class DashboardPage extends Component {              
+// interface StateProps {
+//   userReducer: {
+//     accessToken: string
+//   },
+//   eventReducer: {
+//     events: object[]
+//   }
+// }
+     
+// interface DispatchProps {
+//   dispatchUserInfo: () => void;
+//   dispatchEventInfo: (accessToken: string, query: string) => void;
+//   type: string
+// }
+
+interface OwnProps {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  accessToken: string,
+  events: object[]
+}
+
+type Props  =ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & OwnProps;
+
+class DashboardPage extends React.Component<Props, {}> {              
   componentDidMount() {
     const { dispatchUserInfo } = this.props;
     dispatchUserInfo();
   }
 
-  handleEventSearch = (e : Object) => {
-    e.preventDefault();
+  handleEventSearch = (event: any): void => {
+    event.preventDefault();
     const { dispatchEventInfo, accessToken } = this.props;
-    const query = e.target.children[0].value;
+    const query: string = event.target.children[0].value;
     dispatchEventInfo(accessToken, query);
   }
 
@@ -32,7 +53,6 @@ class DashboardPage extends Component {
               placeholder="Search an event"
               className="search-event__input"
               aria-label="Enter search text"
-              onChange={this.handleInputChange}
             />
             <button type="submit" className="search-event__button">
               <SearchIcon />
@@ -51,31 +71,17 @@ class DashboardPage extends Component {
   }
 }
 
-DashboardPage.defaultProps = {
-  dispatchUserInfo: null,
-  dispatchEventInfo: null,
-  accessToken: ''
-};
-
-DashboardPage.propTypes = {
-  dispatchUserInfo: PropTypes.func,
-  dispatchEventInfo: PropTypes.func,
-  accessToken: PropTypes.string
-};
-
-const mapStateToProps = (state: Object) => {
-  const name = state.userReducer.name || '';
+const mapStateToProps: any = (state: ReturnType<typeof mapStateToProps>) => {
   const accessToken = state.userReducer.accessToken || '';
   const events = state.eventReducer || [];
   return {
-    name,
     accessToken,
     events
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatchEventInfo(query, token) {
+const mapDispatchToProps: any = (dispatch: ReturnType<typeof mapDispatchToProps>) => ({
+  dispatchEventInfo(query: string, token: string) {
     dispatch(getEventInfo(query, token));
   },
   dispatchUserInfo() {

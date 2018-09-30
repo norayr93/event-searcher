@@ -9,15 +9,11 @@ import {
 import {
   setEventInfo, GET_EVENT_INFO
 } from '../actions';
+import { AnyAction } from 'redux';
 
-function* workerSaga({ token, query }: {token: string, query: string}) {
+function* workerSaga({ token, query }: AnyAction) {
   try {
-    const options: {
-      method: string,
-      url: string,
-      credentials: string,
-      headers: { Authorization: string }
-    } = {
+    const options: any = {
       method: 'get',
       url: `https://www.eventbriteapi.com/v3/events/search/?q=${query}&sort_by=best&price=paid&expand=venue`,
       credentials: 'include',
