@@ -1,4 +1,4 @@
-const createReducer = (initialState: object, handlers: any) => (state = initialState, action: { type: string }) => {
+const createReducer = (initialState: ([] | {}), handlers: any) => (state = initialState, action: { type: string }) => {
   if (Object.prototype.hasOwnProperty.call(handlers, action.type)) {
     // console.log(state, 'state from createReducer');
     // console.log(action, 'action from createReducer');

@@ -87,9 +87,5 @@ module.exports = (env) => {
       }
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
-    externals: {
-      'react': 'React',
-      'react-dom': 'ReactDOM'
-    }
   };
 };

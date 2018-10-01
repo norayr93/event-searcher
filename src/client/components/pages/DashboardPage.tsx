@@ -72,8 +72,8 @@ class DashboardPage extends React.Component<Props, {}> {
 }
 
 const mapStateToProps: any = (state: ReturnType<typeof mapStateToProps>) => {
-  const accessToken = state.userReducer.accessToken || '';
-  const events = state.eventReducer || [];
+  const accessToken = state.user.accessToken || '';
+  const events = state.events || [];
   return {
     accessToken,
     events
